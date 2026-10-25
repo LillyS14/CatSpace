@@ -23,7 +23,7 @@
             {% for memory in cat.memories.all %}
                 <p><a href="{% url 'memories:detail' memory.pk %}">{{ memory }}</a></p>
                 {% if memory.image %}
-                    <img src="{{ memory.image.url }}" alt="Memory Image">
+                    <img src="{{ memory.image.url }}" alt="Memory Image" width="150" height="auto">
                 {% endif %}
             {% endfor %}
         </div>
