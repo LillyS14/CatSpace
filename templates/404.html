@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h2>OOPS... Sorry, Error 404 - Not Found</h2>
+
+    <img src="{% static 'images/oops.gif' %}"
+         alt="Cat typing on a laptop">
+
+    <h4>Who let the cats out?</h4>
+    <a class="btn btn-primary" href="javascript:history.back()">Paw Back</a>
+{% endblock %}

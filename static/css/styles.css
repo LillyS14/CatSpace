@@ -1,0 +1,55 @@
+body {
+    background-color: seashell;
+    font-family: 'Lato', sans-serif;
+    color: teal;
+}
+
+header {
+    background-color: mistyrose;
+    color: teal;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 1rem;
+    list-style-type: none;
+}
+
+nav ul li a, h1 a i {
+    color: teal;
+}
+
+.card {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+img {
+    border-radius: 10px;
+}
+
+footer {
+    background-color: teal;
+    color: mistyrose;
+}
+
+
+/*.cat-pics {*/
+/*    display: flex;*/
+/*    justify-content: space-evenly;*/
+/*    align-items: stretch;*/
+/*    background-color: bisque;*/
+/*}*/
+
+/*.cat-pics img {*/
+/*    max-width: calc(100% / 3);*/
+/*    max-height: 22em;*/
+/*}*/
+
+/*.container {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: space-around;*/
+/*}*/

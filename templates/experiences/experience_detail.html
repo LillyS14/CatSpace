@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h2>Experiences</h2>
+    <article class="card">
+        {% if not experience.is_available %}<span>CURRENTLY UNAVAILABLE</span>{% endif %}
+        <h4 class="card-header">{{ experience }}</h4>
+
+        <div class="card-img">
+            {% if experience.cover_image_url %}
+                <img src="{{ experience.cover_image_url }}" alt="Cover Image" width="600px" height="auto">
+            {% else %}
+                <div class="my-3">
+                    <img src="{% static 'images/yoga.jpg' %}" alt="Yoga Cats" width="600px" height="auto">
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+            {% if experience.teammate %}
+                <p>lead by
+                    <a href="{% url 'teammates:detail' experience.teammate.id %}">{{ experience.teammate }}</a>
+                </p>
+            {% endif %}
+            <p>Price: {{ experience.price }} &euro;</p>
+            {% if experience.avg_rating %}
+                <p>Average Rating: {{ experience.avg_rating|floatformat:2 }}</p>
+            {% endif %}
+            {% if experience.description %}<p>{{ experience.description }}</p>{% endif %}
+
+            <div>
+                {% if experience.memories.count %}
+                    <h4>in {{ experience.memories.count }} memories</h4>
+                    {% for memory in experience.memories.all %}
+                        <p><a href="{% url 'memories:detail' memory.pk %}">{{ memory }}</a></p>
+                        {% if memory.image %}
+                            <img src="{{ memory.image.url }}" alt="Memory Image" width="150px" height="auto">
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+
+        <div class="card-footer">
+            <a href="{% url 'experiences:update' experience.slug %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'experiences:delete' experience.slug %}" class="btn btn-danger">Delete</a>
+        </div>
+
+    </article>
+{% endblock %}

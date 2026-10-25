@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div>{% for message in messages %}{{ message }}{% endfor %}</div>
+
+    <h2>Memories</h2>
+    <section class="row">
+        {% for memory in memory_list %}
+            <article class="card col-5 m-3 p-0">
+                <h3 class="card-header">{{ memory }}</h3>
+                <div class="card-body">
+                    {% if memory.experience %}
+                        <p>for<a href="{% url 'experiences:detail' memory.experience.slug %}">
+                            {{ memory.experience }}</a></p>
+                    {% endif %}
+                    {% if memory.cats.all %}
+                        <h4>featuring</h4>
+                        {% for cat in memory.cats.all %}
+                            <p><a href="{% url 'cats:detail' cat.pk %}">{{ cat }}</a></p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="card-img">
+                    {% if memory.image %}
+                        <a href="{{ memory.image.url }}" target="_blank">
+                            <img src="{{ memory.image.url }}" alt="Memory Image" width="300px" height="auto">
+                        </a>
+                    {% else %}
+                        <img src="{% static 'images/hestia_hephaestus.jpg' %}" alt="Hestia Hephaestus Cats"
+                             width="600px" height="auto">
+                    {% endif %}
+                </div>
+                    <a class="btn-info card-button" href="{% url 'memories:detail' memory.pk %}">Details</a>
+            </article>
+        {% empty %}
+            <div class="my-3">
+                <img src="{% static 'images/hestia_hephaestus.jpg' %}" alt="Hestia Hephaestus Cats" width="600px"
+                     height="auto">
+            </div>>
+        {% endfor %}
+    </section>
+
+    <div><a class="btn btn-primary" href="{% url 'memories:create' %}">Share Your Memory</a></div>
+
+    {% if page_obj.has_other_pages %}
+        {% include 'common/pagination.html' %}
+    {% endif %}
+
+{% endblock %}

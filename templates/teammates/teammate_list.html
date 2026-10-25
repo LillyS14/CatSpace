@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h2>Teammates</h2>
+    <section class="row">
+        {% for teammate in teammate_list %}
+            <article class="card col-5 m-3 p-0">
+                <h3 class="card-header">{{ teammate }}</h3>
+                <div class="card-img">
+                    {% if teammate.image_url %}
+                        <a href="{{ teammate.image_url }}">
+                            <img src="{{ teammate.image_url }}" alt="Profile Image" width="300px">
+                        </a>
+                    {% endif %}
+                </div>
+                <p>Email: {{ teammate.email }}</p>
+                {% if teammate.phone %}<p>Phone: {{ teammate.phone }}</p>{% endif %}
+                {% if teammate.description %}<p>{{ teammate.description|truncatewords:10 }}</p>{% endif %}
+                <a class="btn-info card-button" href="{% url 'teammates:detail' teammate.pk %}">Details</a>
+            </article>
+        {% empty %}
+            <div class="my-3">
+                <img src="{% static 'images/sami_mena.jpg' %}" alt="Sami Mena Cats" width="600px" height="auto">
+            </div>
+        {% endfor %}
+    </section>
+
+    <div><a class="btn btn-primary" href="{% url 'teammates:create' %}">Add Teammate</a></div>
+
+{% endblock %}

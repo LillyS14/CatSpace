@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <article class="card">
+        <h2 class="card-header">{{ cat.name }}</h2>
+        <div class="card-img">
+            {% if cat.image_url %}
+                <a href="{{ cat.image_url }}" target="_blank">
+                    <img src="{{ cat.image_url }}" alt="Cat Image" width="300px">
+                </a>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            {% if cat.birthday %}
+                <p>Birthday: {{ cat.birthday }}</p>
+                <p>Age: {{ cat.age }}</p>
+            {% endif %}
+            <p>Eyes: {{ cat.eyes }}</p>
+            <p>Fur: {{ cat.fur }} <span>{{ cat.is_long_haired|yesno:"long-haired,short-haired" }}</span></p>
+            {% if cat.description %}
+                <p>{{ cat.description }}</p>
+            {% endif %}
+            {% for memory in cat.memories.all %}
+                <p><a href="{% url 'memories:detail' memory.pk %}">{{ memory }}</a></p>
+                {% if memory.image %}
+                    <img src="{{ memory.image.url }}" alt="Memory Image">
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="mt-3">
+            <a href="{% url 'cats:update' cat.pk %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'cats:delete' cat.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+    </article>
+{% endblock %}

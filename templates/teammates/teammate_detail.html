@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="card">
+        <h2 class="card-header">{{ teammate.name }}</h2>
+        <div class="card-body">
+            <p>Email: {{ teammate.email }}</p>
+            {% if teammate.phone %}<p>Phone: {{ teammate.phone }}</p>{% endif %}
+            {% if teammate.description %}<p>{{ teammate.description }}</p>{% endif %}
+
+            {% if teammate.experiences.count %}
+                <h4>leading {{ teammate.experiences.count }} experiences </h4>
+                {% for experience in teammate.experiences.all %}
+                    <p><a href="{% url 'experiences:detail' experience.slug %}"
+                          class="btn btn-info">{{ experience }}</a></p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="card-img">
+            {% if teammate.image_url %}
+                <img src="{{ teammate.image_url }}" alt="Profile Image">
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'teammates:update' teammate.pk %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'teammates:delete' teammate.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+{% endblock %}

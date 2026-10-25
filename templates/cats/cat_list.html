@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h2>Cats</h2>
+    <section class="row">
+        {% for cat in cat_list %}
+            <article class="card col-5 m-3 p-0">
+                <h3 class="card-header">{{ cat }}</h3>
+                <div class="card-img">
+                    {% if cat.image_url %}
+                        <a href="{{ cat.image_url }}" target="_blank">
+                            <img src="{{ cat.image_url }}" alt="Cat Image" width="300px">
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% for memory in cat.memories.all %}
+                        <p><a href="{% url 'memories:detail' memory.pk %}">{{ memory }}</a></p>
+                        {% if memory.image %}
+                            <img src="{{ memory.image.url }}" alt="Memory Image" width="150">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <a class="btn-info card-button" href="{% url 'cats:detail' cat.pk %}">{{ cat.name }} Cat Details</a>
+            </article>
+        {% empty %}
+            <div class="my3">
+                <img src="{% static 'images/toshi.jpg' %}" alt="Toshi Cat" width="600px" height="auto">
+            </div>
+        {% endfor %}
+    </section>
+
+    <div class="my-3"><a class="btn btn-primary" href="{% url 'cats:create' %}">Add Cat</a></div>
+
+    {% if page_obj.has_other_pages %}
+        {% include 'common/pagination.html' %}
+    {% endif %}
+
+{% endblock %}

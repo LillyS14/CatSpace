@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <section>
+        <h2>The PURRfect place to be</h2>
+        <p>even <q>when it hasn't been your day, your week. Your month, or even your year</q></p>
+    </section>
+    <section>
+        <h2>Once upon a time...</h2>
+        <p>a lady fell in love with a cat - {{ cat.name|default:"Sami" }}</p>
+        {% if cat.image_url %}
+            <img src="{{ cat.image_url }}" alt="First Cat" width="300px" height="auto">
+        {% else %}
+            <img src="{% static 'images/sami.jpg' %}" alt="Sami The First" width="300px" height="auto">
+        {% endif %}
+        <p>and then we became a Family</p>
+        <img src="{% static 'images/family.jpg' %}" alt="Cat Family" width="300px" height="auto">
+        <p>dreaming to share the love <i class="fa-solid fa-heart" style="color: rgb(116, 192, 252);"></i></p>
+        <p>See you soon!</p>
+        <span>Yours,</span>
+        <a href="{% url 'teammates:list' %}">Team CatSpace</a>
+    </section>
+{% endblock %}
