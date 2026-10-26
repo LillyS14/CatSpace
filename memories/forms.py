@@ -1,9 +1,10 @@
 from django import forms
 
+from catspace.mixins import StyledFormMixin
 from memories.models import Memory
 
 
-class MemoryBaseForm(forms.ModelForm):
+class MemoryBaseForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = Memory
         fields = "__all__"
@@ -14,12 +15,6 @@ class MemoryBaseForm(forms.ModelForm):
             "title": forms.TextInput(attrs={"placeholder": "Enter your comment"}),
             "author": forms.TextInput(attrs={"placeholder": "Enter your name"}),
         }
-
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            if field.required:
-                field.label += "*"
 
 
 class MemoryCreateForm(MemoryBaseForm):

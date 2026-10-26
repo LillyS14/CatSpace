@@ -1,9 +1,10 @@
 from django import forms
 
 from cats.models import Cat
+from catspace.mixins import StyledFormMixin
 
 
-class CatBaseForm(forms.ModelForm):
+class CatBaseForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = Cat
         fields = "__all__"
@@ -13,6 +14,9 @@ class CatBaseForm(forms.ModelForm):
             "image_url": forms.URLInput(attrs={"placeholder": "https://example.com"})
         }
         labels = {"image_url": "Image URL"}
+        error_messages = {
+            "name": {"unique": "We already have a cat with the same name 🐾"}
+        }
 
 
 class CatCreateForm(CatBaseForm):

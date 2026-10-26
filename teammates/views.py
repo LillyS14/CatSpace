@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
+from teammates.forms import TeammateBaseForm
 from teammates.models import Teammate
 
 
@@ -11,7 +12,7 @@ class TeammateList(ListView):
 
 class CreateTeammate(CreateView):
     model = Teammate
-    fields = "__all__"
+    form_class = TeammateBaseForm
     success_url = reverse_lazy("teammates:list")
     template_name = "common/form.html"
 
@@ -22,7 +23,7 @@ class TeammateDetail(DetailView):
 
 class UpdateTeammate(UpdateView):
     model = Teammate
-    fields = "__all__"
+    form_class = TeammateBaseForm
     success_url = reverse_lazy("teammates:list")
     template_name = "common/form.html"
 

@@ -29,7 +29,8 @@ urlpatterns = [
     path("cats/", include("cats.urls")),
     path("experiences/", include("experiences.urls")),
     path("memories/", include("memories.urls")),
-    path("teammates/", include("teammates.urls"))
+    path("teammates/", include("teammates.urls")),
+    path("contact/", views.Contact.as_view(), name="contact")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -10,3 +10,6 @@ class Home(TemplateView):
         context = super().get_context_data(**kwargs)
         context["cat"] = Cat.objects.first()
         return context
+
+class Contact(TemplateView):
+    template_name = "common/contact.html"

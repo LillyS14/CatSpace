@@ -20,7 +20,7 @@
 
 <body>
 <header class="p-3">
-    {% include "common/nav.html" %}
+    {% include "common/navigation.html" %}
     {% block header %}
         <h1><a href="{% url 'home' %}"><i class="fa-brands fa-napster"></i></a> Welcome to Your CatSpace!</h1>
     {% endblock %}
@@ -33,7 +33,6 @@
 
 <footer class="mt-5 mb-0 p-3">
     <div class="mb-0 text-right">&copy Copyright {% now "Y" %} CatSpace. All rights reserved.</div>
-    <div class="footer-social"></div>
 </footer>
 </body>
 </html>
