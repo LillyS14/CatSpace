@@ -320,6 +320,25 @@ nav ul li a.active {
     border-radius: 0 20px 20px 0;
 }
 
+.filter-form {
+    max-width: 960px;
+    margin-bottom: 2rem;
+}
+
+.filter-form .form-control,
+.filter-form .btn {
+    border-radius: 20px;
+}
+
+.filter-form .form-control {
+    border-color: var(--dusty-rose);
+}
+
+.filter-form .form-control:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.15);
+}
+
 /* ---------- Pagination ---------- */
 
 .pagination {

@@ -4,6 +4,39 @@
 {% block content %}
     <h2>Cats</h2>
     <p class="lead-text">Our fluffy friends are rescued, loved and simply adorable...</p>
+
+    <form method="get" class="filter-form" role="search">
+        <div class="form-row">
+            <div class="col-md-5 mb-2">
+                <input type="search" name="query" value="{{ request.GET.query }}" class="form-control"
+                       placeholder="Search by name or character..." aria-label="Search cats">
+            </div>
+            <div class="col-md-2 mb-2">
+                <select name="eyes" class="form-control" aria-label="Eyes">
+                    <option value="">All eyes</option>
+                    {% for eyes in eye_choices %}
+                        <option value="{{ eyes }}" {% if eyes == request.GET.eyes %}selected{% endif %}>{{ eyes }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2 mb-2">
+                <select name="fur" class="form-control" aria-label="Fur">
+                    <option value="">All furs</option>
+                    {% for fur in fur_choices %}
+                        <option value="{{ fur }}" {% if fur == request.GET.fur %}selected{% endif %}>{{ fur }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3 mb-2">
+                <button class="btn btn-primary btn-block" type="submit"><i class="fa-solid fa-paw"></i> Find Your Catmate</button>
+            </div>
+        </div>
+        {% if request.GET.query or request.GET.eyes or request.GET.fur %}
+            <p class="card-meta">{{ page_obj.paginator.count }} cat{{ page_obj.paginator.count|pluralize }} found &middot;
+                <a href="{% url 'cats:list' %}">show all</a></p>
+        {% endif %}
+    </form>
+
     <section class="row card-list">
         {% for cat in cat_list %}
             <article class="col-md-6 col-lg-4 mb-4">
@@ -38,7 +71,10 @@
                 </div>
             </article>
         {% empty %}
-            <div class="my-3">
+            <div class="my-3 col-12">
+                {% if request.GET.query or request.GET.eyes or request.GET.fur %}
+                    <p>No catmate found... they're napping somewhere out there. Please give it another try!</p>
+                {% endif %}
                 <img src="{% static 'images/toshi.jpg' %}" alt="Toshi Cat" width="600px" height="auto">
             </div>
         {% endfor %}

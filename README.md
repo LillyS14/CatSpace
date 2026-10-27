@@ -29,6 +29,9 @@ The database (`db.sqlite3`) and uploaded images (`media/`) are included, so the 
 3. memories - used for managing CRUD operations with memories. CUD will be restricted to authors of the post and admin.
 4. teammates - used for managing CRUD operations with teammates. CUD will be restricted to authorized users.
 
+## Features
+CBV, models, forms, validations, template tags, filters, search functionality, pagination, etc.
+
 ## Extra Features
 
 Phone Number Validation: Implemented international phone number validation using `django-phonenumber-field` to ensure
