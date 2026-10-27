@@ -9,7 +9,7 @@ from experiences.models import Experience
 # Create your views here.
 class ExperienceList(ListView):
     queryset = Experience.objects.filter(is_available=True).prefetch_related("memories").annotate(
-        avg_rating=Avg("memories__rating"))
+        avg_rating=Avg("memories__rating")).order_by("-updated_at")
     paginate_by = 6
 
 

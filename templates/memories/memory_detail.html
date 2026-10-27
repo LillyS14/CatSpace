@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load memory_extras %}
 {% load static %}
 
 {% block content %}
@@ -15,7 +16,7 @@
     </div>
     <div class="card-body">
         {% if memory.description %}<p>{{ memory.description }}</p>{% endif %}
-        <p>Rating: {{ memory.rating }}</p>
+        <p>Rating: {{ memory.rating|stars }}</p>
         {% if memory.experience %}
             <p>for <a href="{% url 'experiences:detail' memory.experience.slug %}">{{ memory.experience }}</a></p>
         {% endif %}

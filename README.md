@@ -16,8 +16,11 @@ The database (`db.sqlite3`) and uploaded images (`media/`) are included, so the 
 2. Virtual environment: python -m venv .venv
 3. Activate the environment: .venv\Scripts\activate on Windows, source .venv/bin/activate on macOS/Linux.
 4. Install dependencies: pip install -r requirements.txt
-5. Run: python manage.py runserver, then open http://127.0.0.1:8000/
-6. Admin login (optional): admin / CatSpace2026!
+5. Run: python manage.py runserver, (use the default port 8000, since the demo images are linked to it).
+6. Open http://127.0.0.1:8000/
+7. Admin login (optional): admin / CatSpace2026!
+8. To preview the custom 404 page, set `DEBUG = False` in catspace/settings.py and run
+   `python manage.py runserver --insecure`. Set it back to True afterwards.
 
 ## Apps
 
@@ -31,7 +34,8 @@ The database (`db.sqlite3`) and uploaded images (`media/`) are included, so the 
 Phone Number Validation: Implemented international phone number validation using `django-phonenumber-field` to ensure
 that the submitted phone numbers follow valid numbering formats and are stored consistently.
 
-Google Maps Integration: Embedded Google Maps using an iframe to display the location and help customers find the address
+Google Maps Integration: Embedded Google Maps using an iframe to display the location and help customers find the
+address
 easily.
 
 ## Disclaimer

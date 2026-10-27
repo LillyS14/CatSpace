@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load memory_extras %}
 {% load static %}
 
 {% block content %}
@@ -19,14 +20,12 @@
 
         <div class="card-body">
             {% if experience.teammate %}
-                <p>lead by
+                <p>led by
                     <a href="{% url 'teammates:detail' experience.teammate.id %}">{{ experience.teammate }}</a>
                 </p>
             {% endif %}
             <p>Price: {{ experience.price }} &euro;</p>
-            {% if experience.avg_rating %}
-                <p>Average Rating: {{ experience.avg_rating|floatformat:2 }}</p>
-            {% endif %}
+            <p>Average Rating: {{ experience.avg_rating|stars }}</p>
             {% if experience.description %}<p>{{ experience.description }}</p>{% endif %}
 
             <div>

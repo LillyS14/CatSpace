@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load memory_extras %}
 {% load static %}
 
 {% block content %}
@@ -19,7 +20,7 @@
                         <p>{{ experience.description }}</p>
                     {% endif %}
                     {% if experience.avg_rating and experience.avg_rating >= 8 %}
-                        <p>Average Rating: {{ experience.avg_rating|floatformat:2 }}</p>
+                        <p>Average Rating: {{ experience.avg_rating|stars }} ({{ experience.avg_rating|floatformat:1 }})</p>
                     {% endif %}
                     {% for memory in experience.memories.all %}
                         <p><a href="{{ memory.get_absolute_url }}">{{ memory }}</a></p>

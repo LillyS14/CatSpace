@@ -15,6 +15,9 @@ class MemoryBaseForm(StyledFormMixin, forms.ModelForm):
             "title": forms.TextInput(attrs={"placeholder": "Enter your comment"}),
             "author": forms.TextInput(attrs={"placeholder": "Enter your name"}),
         }
+        error_messages = {
+            "title": {"max_length": "Title cannot exceed 30 characters. Share more in description. Thank You! 🐾"}
+        }
 
 
 class MemoryCreateForm(MemoryBaseForm):
