@@ -16,3 +16,6 @@ class Teammate(TimeStampMixin):
 
     def __str__(self) -> str:
         return self.name
+
+    class Meta:
+        ordering = ["created_at"]

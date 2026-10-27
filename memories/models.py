@@ -18,7 +18,7 @@ class Memory(TimeStampMixin):
     cats = models.ManyToManyField("cats.Cat", related_name="memories", blank=True)
 
     class Meta:
-        ordering = ["updated_at"]
+        ordering = ["-updated_at"]
 
     def __str__(self) -> str:
         return f"{self.title} by {self.author}"

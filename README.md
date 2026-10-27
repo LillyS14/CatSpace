@@ -40,7 +40,7 @@ easily.
 
 ## Disclaimer
 
-Currently, there are no users and login/ authentication logic. Some of the pictures might be AI generated.
+Currently, there are no users and login/ authentication logic. 2 of the images and part of the CSS are generated with AI help.
 
 ## Credits
 

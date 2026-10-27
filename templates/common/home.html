@@ -1,33 +1,87 @@
 {% extends "base.html" %}
+{% load memory_extras %}
 {% load static %}
 
 {% block content %}
     <section class="intro">
         <h2>The PURRfect place to be</h2>
         <p>happy even <q>when it hasn't been your day, your week. Your month, or even your year</q></p>
-        <p>Have a great time and find new friends! 🐾</p>
+        <p>Have a great time and find new friends! &#128008; &#78048; &#128008;&#8205;&#11035;</p>
     </section>
-    <section class="story">
-        <h2>Once upon a time...</h2>
-        <p class="drop-cap">a lady fell in love with a cat - {{ cat.name|default:"Sami" }}</p>
-        <div>
-            <figure class="polaroid">
-                {% if cat.image_url %}
-                    <img src="{{ cat.image_url }}" alt="First Cat">
-                {% else %}
-                    <img src="{% static 'images/sami.jpg' %}" alt="Sami The First">
-                {% endif %}
-            </figure>
-        </div>
-        <p>and then we became a Family</p>
-        <div>
-            <figure class="polaroid tilt-right">
-                <img src="{% static 'images/family.jpg' %}" alt="Cat Family">
-            </figure>
-        </div>
-        <p>dreaming to share the love <i class="fa-solid fa-heart" style="color: rgb(116, 192, 252);"></i></p>
-        <p>See you soon!</p>
-        <span>Yours,</span>
-        <a href="{% url 'teammates:list' %}" class="signature">Team CatSpace</a>
-    </section>
+
+    <div class="row">
+        <aside class="col-lg-3 order-2 order-lg-1 home-side">
+            <h3 class="side-heading">Fresh memories</h3>
+            {% for memory in recent_top_memories %}
+                <article class="card home-card mb-3">
+                    {% if memory.image %}
+                        <img src="{{ memory.image.url }}" alt="{{ memory.title }}" class="card-img-top">
+                    {% else %}
+                        <div class="card-img-placeholder"><i class="fa-solid fa-paw"></i></div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h4 class="card-title">{{ memory.title }}</h4>
+                        <p class="card-meta mb-1">by {{ memory.author }}</p>
+                        <p class="mb-0">{{ memory.rating|stars }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-sm" href="{{ memory.get_absolute_url }}">Read more</a>
+                    </div>
+                </article>
+            {% empty %}
+                <p class="card-meta">No memories yet... be the first one to share!</p>
+            {% endfor %}
+            <a class="side-link" href="{% url 'memories:list' %}">All memories &#128062;</a>
+            <a class="side-link" href="{% url 'memories:create' %}">Share your memory &#128062;</a>
+        </aside>
+
+        <section class="story col-lg-6 order-1 order-lg-2">
+            <h2>Once upon a time...</h2>
+            <p class="drop-cap">a lady fell in love with a cat - {{ first_cat.name|default:"Sami" }}</p>
+            <div>
+                <figure class="polaroid">
+                    {% if first_cat.image_url %}
+                        <img src="{{ first_cat.image_url }}" alt="First Cat">
+                    {% else %}
+                        <img src="{% static 'images/sami.jpg' %}" alt="Sami The First">
+                    {% endif %}
+                </figure>
+            </div>
+            <p>and then we became a Family</p>
+            <div>
+                <figure class="polaroid tilt-right">
+                    <img src="{% static 'images/family.jpg' %}" alt="Cat Family">
+                </figure>
+            </div>
+            <p>dreaming to share the love <i class="fa-solid fa-heart" style="color: rgb(116, 192, 252);"></i></p>
+            <p>See you soon!</p>
+            <span>Yours,</span>
+            <a href="{% url 'teammates:list' %}" class="signature">Team CatSpace</a>
+        </section>
+
+        <aside class="col-lg-3 order-3 home-side">
+            <h3 class="side-heading">New experiences</h3>
+            {% for experience in latest_top_experiences %}
+                <article class="card home-card mb-3">
+                    {% if experience.cover_image_url %}
+                        <img src="{{ experience.cover_image_url }}" alt="{{ experience }}" class="card-img-top">
+                    {% else %}
+                        <div class="card-img-placeholder"><i class="fa-solid fa-mug-hot"></i></div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h4 class="card-title">{{ experience }}</h4>
+                        <p class="card-meta mb-1">{{ experience.price }} &euro;
+                            {% if experience.teammate %}&middot; with {{ experience.teammate }}{% endif %}</p>
+                        <p class="mb-0">{{ experience.avg_rating|stars }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-sm" href="{% url 'experiences:detail' experience.slug %}">Discover</a>
+                    </div>
+                </article>
+            {% empty %}
+                <p class="card-meta">New a-meow-ing experiences are coming soon...</p>
+            {% endfor %}
+            <a class="side-link" href="{% url 'experiences:list' %}">All experiences &#128062;</a>
+        </aside>
+    </div>
 {% endblock %}

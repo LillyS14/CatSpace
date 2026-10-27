@@ -209,9 +209,35 @@ nav ul li a.active {
 }
 
 .story {
-    max-width: 720px;
-    margin: 0 auto;
     text-align: center;
+    margin-bottom: 2rem;
+}
+
+.home-side {
+    margin-bottom: 2rem;
+}
+
+.side-heading {
+    font-size: 1.3rem;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--dusty-rose);
+}
+
+.home-card .card-img-top,
+.home-card .card-img-placeholder {
+    height: 180px;
+    font-size: 3rem;
+}
+
+.home-card .card-title {
+    font-size: 1.1rem;
+}
+
+.side-link {
+    display: block;
+    text-align: center;
+    font-style: italic;
 }
 
 .story .drop-cap::first-letter {
