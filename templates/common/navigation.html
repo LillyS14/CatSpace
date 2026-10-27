@@ -1,13 +1,20 @@
 {% with view_name=request.resolver_match.view_name namespace=request.resolver_match.namespace %}
     <nav class="p-3">
         <ul>
-            <li><a href="{% url 'home' %}" {% if view_name == "home" %}class="active"{% endif %}><i class="fa-solid fa-house-chimney-window"></i>Home</a></li>
-            <li><a href="{% url 'cats:list' %}" {% if namespace == "cats" %}class="active"{% endif %}><i class="fa-solid fa-cat"></i>Cats</a></li>
-            <li><a href="{% url 'teammates:list' %}" {% if namespace == "teammates" %}class="active"{% endif %}><i class="fa-solid fa-shield-cat"></i>Teammates</a></li>
-            <li><a href="{% url 'experiences:list' %}" {% if namespace == "experiences" %}class="active"{% endif %}><i class="fa-brands fa-java"></i>Experiences</a></li>
-            <li><a href="{% url 'memories:list' %}" {% if namespace == "memories" and view_name != "memories:create" %}class="active"{% endif %}><i class="fa-solid fa-book-journal-whills"></i>Memories</a></li>
-            <li><a href="{% url 'memories:create' %}" {% if view_name == "memories:create" %}class="active"{% endif %}><i class="fa-solid fa-paw"></i>Share Your Memory</a></li>
-            <li><a href="{% url 'contact' %}" {% if view_name == "contact" %}class="active"{% endif %}><i class="fa-solid fa-at"></i>Contact</a></li>
+            <li><a href="{% url 'home' %}" {% if view_name == "home" %}class="active"{% endif %}>
+                <i class="fa-solid fa-house-chimney-window"></i>Home</a></li>
+            <li><a href="{% url 'cats:list' %}" {% if namespace == "cats" %}class="active"{% endif %}>
+                <i class="fa-solid fa-cat"></i>Cats</a></li>
+            <li><a href="{% url 'teammates:list' %}" {% if namespace == "teammates" %}class="active"{% endif %}>
+                <i class="fa-solid fa-shield-cat"></i>Teammates</a></li>
+            <li><a href="{% url 'experiences:list' %}" {% if namespace == "experiences" %}class="active"{% endif %}>
+                <i class="fa-brands fa-java"></i>Experiences</a></li>
+            <li><a href="{% url 'memories:list' %}" {% if namespace == "memories" and view_name != "memories:create" %}class="active"{% endif %}>
+                <i class="fa-solid fa-book-journal-whills"></i>Memories</a></li>
+            <li><a href="{% url 'memories:create' %}" {% if view_name == "memories:create" %}class="active"{% endif %}>
+                <i class="fa-solid fa-paw"></i>Share Your Memory</a></li>
+            <li><a href="{% url 'contact' %}" {% if view_name == "contact" %}class="active"{% endif %}>
+                <i class="fa-solid fa-at"></i>Contact</a></li>
         </ul>
     </nav>
 {% endwith %}

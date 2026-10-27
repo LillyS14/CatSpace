@@ -16,8 +16,7 @@
                             <img src="{{ memory.image.url }}" alt="Memory Image" class="card-img-top">
                         </a>
                     {% else %}
-                        <img src="{% static 'images/hestia_hephaestus.jpg' %}" alt="Hestia Hephaestus Cats"
-                             class="card-img-top">
+                        <div class="card-img-placeholder"><i class="fa-solid fa-paw"></i></div>
                     {% endif %}
                     <div class="card-body">
                         <h3 class="card-title">{{ memory.title }}</h3>
