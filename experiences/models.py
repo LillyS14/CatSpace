@@ -21,8 +21,10 @@ class Experience(TimeStampMixin):
 
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
-        self.slug = slugify(f"{self.name}-{self.pk}")
-        super().save(*args, **kwargs)
+        new_slug = slugify(f"{self.name}-{self.pk}")
+        if self.slug != new_slug:
+            self.slug = new_slug
+            super().save(update_fields=["slug"])
 
     def __str__(self) -> str:
         return self.name
