@@ -299,6 +299,27 @@ nav ul li a.active {
     color: var(--danger);
 }
 
+/* ---------- Search ---------- */
+
+.search-form {
+    max-width: 560px;
+    margin-bottom: 2rem;
+}
+
+.search-form .form-control {
+    border-color: var(--dusty-rose);
+    border-radius: 20px 0 0 20px;
+}
+
+.search-form .form-control:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.15);
+}
+
+.search-form .btn {
+    border-radius: 0 20px 20px 0;
+}
+
 /* ---------- Pagination ---------- */
 
 .pagination {

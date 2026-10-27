@@ -4,6 +4,21 @@
 
 {% block content %}
     <h2>Experiences</h2>
+
+    <form method="get" class="search-form" role="search">
+        <div class="input-group">
+            <input type="search" name="query" value="{{ request.GET.query }}" class="form-control"
+                   placeholder="Search by name, description or teammate..." aria-label="Search experiences">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+            </div>
+        </div>
+        {% if request.GET.query %}
+            <p class="card-meta mt-2">Results for "{{ request.GET.query }}" &middot;
+                <a href="{% url 'experiences:list' %}">show all</a></p>
+        {% endif %}
+    </form>
+
     <section class="row card-list">
         {% for experience in experience_list %}
             <article class="col-md-6 col-lg-4 mb-4">
@@ -17,12 +32,14 @@
                     {% endif %}
                     <div class="card-body">
                         <h3 class="card-title">{{ experience }}</h3>
-                        <p class="card-meta">{{ experience.price }} &euro;</p>
+                        <p class="card-meta">{{ experience.price }} &euro;
+                            {% if experience.teammate %}&middot; with {{ experience.teammate }}{% endif %}</p>
                         {% if experience.description %}
                             <p>{{ experience.description }}</p>
                         {% endif %}
                         {% if experience.avg_rating and experience.avg_rating >= 8 %}
-                            <p>Average Rating: {{ experience.avg_rating|stars }} ({{ experience.avg_rating|floatformat:1 }})</p>
+                            <p>Average Rating: {{ experience.avg_rating|stars }}
+                                ({{ experience.avg_rating|floatformat:1 }})</p>
                         {% endif %}
                         {% if experience.memories.all %}
                             <h4 class="card-subheading">Memories</h4>
@@ -39,12 +56,16 @@
                         {% endif %}
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-primary btn-sm" href="{% url 'experiences:detail' experience.slug %}">Details</a>
+                        <a class="btn btn-primary btn-sm"
+                           href="{% url 'experiences:detail' experience.slug %}">Details</a>
                     </div>
                 </div>
             </article>
         {% empty %}
-            <div class="my-3">
+            <div class="my-3 col-12">
+                {% if request.GET.query %}
+                    <p>No experiences found... the cats are still stretching. Please give it another try!</p>
+                {% endif %}
                 <img src="{% static 'images/yoga.jpg' %}" alt="Yoga Cats" width="600px" height="auto">
             </div>
         {% endfor %}
