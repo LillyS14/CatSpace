@@ -2,11 +2,13 @@
 {% load static %}
 
 {% block content %}
-    <h2>OOPS... Sorry, Error 404 - Not Found</h2>
+    <div class="not-found">
+        <h2>OOPS... Sorry, Error 404 - Not Found</h2>
 
-    <img src="{% static 'images/oops.gif' %}"
-         alt="Cat typing on a laptop">
+        <img src="{% static 'images/oops.gif' %}"
+             alt="Cat typing on a laptop">
 
-    <h4>Who let the cats out?</h4>
-    <a class="btn btn-primary" href="javascript:history.back()">Paw Back</a>
+        <h4 class="mt-3">Who let the cats out?</h4>
+        <a class="btn btn-primary" href="javascript:history.back()">Paw Back</a>
+    </div>
 {% endblock %}

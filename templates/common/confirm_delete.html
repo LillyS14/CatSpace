@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p>Are you sure you want to delete {{ object }}?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button class="delete-button btn-danger">Delete</button>
-    </form>
+    <div class="form-card">
+        <p>Are you sure you want to delete {{ object }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button class="delete-button btn btn-danger">Delete</button>
+            <a class="btn btn-primary" href="javascript:history.back()">Paw Back</a>
+        </form>
+    </div>
 {% endblock %}
-

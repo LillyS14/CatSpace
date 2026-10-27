@@ -3,30 +3,42 @@
 
 {% block content %}
     <h2>Cats</h2>
-    <p>Our fluffy friends are rescued, loved and simply adorable...</p>
-    <section class="row">
+    <p class="lead-text">Our fluffy friends are rescued, loved and simply adorable...</p>
+    <section class="row card-list">
         {% for cat in cat_list %}
-            <article class="card col-5 m-3 p-0">
-                <h3 class="card-header">{{ cat }}</h3>
-                <div class="card-img">
+            <article class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
                     {% if cat.image_url %}
                         <a href="{{ cat.image_url }}" target="_blank">
-                            <img src="{{ cat.image_url }}" alt="Cat Image" width="300px">
+                            <img src="{{ cat.image_url }}" alt="{{ cat.name }}" class="card-img-top">
                         </a>
+                    {% else %}
+                        <div class="card-img-placeholder"><i class="fa-solid fa-cat"></i></div>
                     {% endif %}
-                </div>
-                <div class="card-body">
-                    {% for memory in cat.memories.all %}
-                        <p><a href="{% url 'memories:detail' memory.pk %}">{{ memory }}</a></p>
-                        {% if memory.image %}
-                            <img src="{{ memory.image.url }}" alt="Memory Image" width="150">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ cat }}</h3>
+                        <p class="card-meta">{{ cat.fur }} fur &middot; {{ cat.eyes }} eyes</p>
+                        {% if cat.memories.all %}
+                            <h4 class="card-subheading">Memories</h4>
+                            {% for memory in cat.memories.all %}
+                                <p class="mb-1"><a href="{% url 'memories:detail' memory.pk %}">{{ memory }}</a></p>
+                            {% endfor %}
+                            <div class="thumbnails">
+                                {% for memory in cat.memories.all %}
+                                    {% if memory.image %}
+                                        <img src="{{ memory.image.url }}" alt="Memory Image">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         {% endif %}
-                    {% endfor %}
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-sm" href="{% url 'cats:detail' cat.pk %}">{{ cat.name }} Cat Details</a>
+                    </div>
                 </div>
-                <a class="btn-info card-button" href="{% url 'cats:detail' cat.pk %}">{{ cat.name }} Cat Details</a>
             </article>
         {% empty %}
-            <div class="my3">
+            <div class="my-3">
                 <img src="{% static 'images/toshi.jpg' %}" alt="Toshi Cat" width="600px" height="auto">
             </div>
         {% endfor %}

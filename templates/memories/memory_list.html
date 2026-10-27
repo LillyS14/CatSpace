@@ -2,36 +2,42 @@
 {% load static %}
 
 {% block content %}
-    <div>{% for message in messages %}{{ message }}{% endfor %}</div>
+    {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
 
     <h2>Memories</h2>
-    <section class="row">
+    <section class="row card-list">
         {% for memory in memory_list %}
-            <article class="card col-5 m-3 p-0">
-                <h3 class="card-header">{{ memory }}</h3>
-                <div class="card-body">
-                    {% if memory.experience %}
-                        <p>for<a href="{% url 'experiences:detail' memory.experience.slug %}">
-                            {{ memory.experience }}</a></p>
-                    {% endif %}
-                    {% if memory.cats.all %}
-                        <h4>featuring</h4>
-                        {% for cat in memory.cats.all %}
-                            <p><a href="{% url 'cats:detail' cat.pk %}">{{ cat }}</a></p>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-                <div class="card-img">
+            <article class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
                     {% if memory.image %}
                         <a href="{{ memory.image.url }}" target="_blank">
-                            <img src="{{ memory.image.url }}" alt="Memory Image" width="300px" height="auto">
+                            <img src="{{ memory.image.url }}" alt="Memory Image" class="card-img-top">
                         </a>
                     {% else %}
                         <img src="{% static 'images/hestia_hephaestus.jpg' %}" alt="Hestia Hephaestus Cats"
-                             width="600px" height="auto">
+                             class="card-img-top">
                     {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title">{{ memory.title }}</h3>
+                        <p class="card-meta">by {{ memory.author }}</p>
+                        {% if memory.experience %}
+                            <p>for <a href="{% url 'experiences:detail' memory.experience.slug %}">{{ memory.experience }}</a></p>
+                        {% endif %}
+                        {% if memory.cats.all %}
+                            <h4 class="card-subheading">featuring</h4>
+                            <p>
+                                {% for cat in memory.cats.all %}
+                                    <a href="{% url 'cats:detail' cat.pk %}">{{ cat }}</a>{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-sm" href="{% url 'memories:detail' memory.pk %}">Details</a>
+                    </div>
                 </div>
-                    <a class="btn-info card-button" href="{% url 'memories:detail' memory.pk %}">Details</a>
             </article>
         {% empty %}
             <div class="my-3">

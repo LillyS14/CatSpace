@@ -4,32 +4,44 @@
 
 {% block content %}
     <h2>Experiences</h2>
-    <section class="row">
+    <section class="row card-list">
         {% for experience in experience_list %}
-            <article class="card col-5 m-3 p-0">
-                <h3 class="card-header">{{ experience }}</h3>
-                <div class="card-img">
+            <article class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
                     {% if experience.cover_image_url %}
                         <a href="{{ experience.cover_image_url }}" target="_blank">
-                            <img src="{{ experience.cover_image_url }}" alt="Cat Image" width="300px">
+                            <img src="{{ experience.cover_image_url }}" alt="{{ experience }}" class="card-img-top">
                         </a>
+                    {% else %}
+                        <div class="card-img-placeholder"><i class="fa-solid fa-mug-hot"></i></div>
                     {% endif %}
-                </div>
-                <div class="card-body">
-                    {% if experience.description %}
-                        <p>{{ experience.description }}</p>
-                    {% endif %}
-                    {% if experience.avg_rating and experience.avg_rating >= 8 %}
-                        <p>Average Rating: {{ experience.avg_rating|stars }} ({{ experience.avg_rating|floatformat:1 }})</p>
-                    {% endif %}
-                    {% for memory in experience.memories.all %}
-                        <p><a href="{{ memory.get_absolute_url }}">{{ memory }}</a></p>
-                        {% if memory.image %}
-                            <img src="{{ memory.image.url }}" alt="Memory Image" width="150px" height="auto">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ experience }}</h3>
+                        <p class="card-meta">{{ experience.price }} &euro;</p>
+                        {% if experience.description %}
+                            <p>{{ experience.description }}</p>
                         {% endif %}
-                    {% endfor %}
+                        {% if experience.avg_rating and experience.avg_rating >= 8 %}
+                            <p>Average Rating: {{ experience.avg_rating|stars }} ({{ experience.avg_rating|floatformat:1 }})</p>
+                        {% endif %}
+                        {% if experience.memories.all %}
+                            <h4 class="card-subheading">Memories</h4>
+                            {% for memory in experience.memories.all %}
+                                <p class="mb-1"><a href="{{ memory.get_absolute_url }}">{{ memory }}</a></p>
+                            {% endfor %}
+                            <div class="thumbnails">
+                                {% for memory in experience.memories.all %}
+                                    {% if memory.image %}
+                                        <img src="{{ memory.image.url }}" alt="Memory Image">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-sm" href="{% url 'experiences:detail' experience.slug %}">Details</a>
+                    </div>
                 </div>
-                <a class="btn-info card-button" href="{% url 'experiences:detail' experience.slug %}">Details</a>
             </article>
         {% empty %}
             <div class="my-3">

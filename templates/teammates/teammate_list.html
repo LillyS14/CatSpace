@@ -3,21 +3,27 @@
 
 {% block content %}
     <h2>Teammates</h2>
-    <section class="row">
+    <section class="row card-list">
         {% for teammate in teammate_list %}
-            <article class="card col-5 m-3 p-0">
-                <h3 class="card-header">{{ teammate }}</h3>
-                <div class="card-img">
+            <article class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
                     {% if teammate.image_url %}
-                        <a href="{{ teammate.image_url }}">
-                            <img src="{{ teammate.image_url }}" alt="Profile Image" width="300px">
+                        <a href="{{ teammate.image_url }}" target="_blank">
+                            <img src="{{ teammate.image_url }}" alt="{{ teammate }}" class="card-img-top">
                         </a>
+                    {% else %}
+                        <div class="card-img-placeholder"><i class="fa-solid fa-shield-cat"></i></div>
                     {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title">{{ teammate }}</h3>
+                        <p class="mb-1"><i class="fa-solid fa-envelope-open"></i> {{ teammate.email }}</p>
+                        {% if teammate.phone %}<p class="mb-1"><i class="fa-solid fa-mobile-vibrate"></i> {{ teammate.phone }}</p>{% endif %}
+                        {% if teammate.description %}<p class="mt-3">{{ teammate.description|truncatewords:10 }}</p>{% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-sm" href="{% url 'teammates:detail' teammate.pk %}">Details</a>
+                    </div>
                 </div>
-                <p>Email: {{ teammate.email }}</p>
-                {% if teammate.phone %}<p>Phone: {{ teammate.phone }}</p>{% endif %}
-                {% if teammate.description %}<p>{{ teammate.description|truncatewords:10 }}</p>{% endif %}
-                <a class="btn-info card-button" href="{% url 'teammates:detail' teammate.pk %}">Details</a>
             </article>
         {% empty %}
             <div class="my-3">

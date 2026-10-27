@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <article class="card">
+    <article class="card detail-card">
         <h2 class="card-header">{{ cat.name }}</h2>
-        <div class="card-img">
-            {% if cat.image_url %}
-                <a href="{{ cat.image_url }}" target="_blank">
-                    <img src="{{ cat.image_url }}" alt="Cat Image" width="300px">
-                </a>
-            {% endif %}
-        </div>
+        {% if cat.image_url %}
+            <a href="{{ cat.image_url }}" target="_blank">
+                <img src="{{ cat.image_url }}" alt="{{ cat.name }}" class="detail-img">
+            </a>
+        {% endif %}
         <div class="card-body">
             {% if cat.birthday %}
                 <p>Birthday: {{ cat.birthday }}</p>
@@ -20,14 +18,21 @@
             {% if cat.description %}
                 <p>{{ cat.description }}</p>
             {% endif %}
-            {% for memory in cat.memories.all %}
-                <p><a href="{% url 'memories:detail' memory.pk %}">{{ memory }}</a></p>
-                {% if memory.image %}
-                    <img src="{{ memory.image.url }}" alt="Memory Image" width="150" height="auto">
-                {% endif %}
-            {% endfor %}
+            {% if cat.memories.all %}
+                <h4 class="card-subheading">Memories</h4>
+                {% for memory in cat.memories.all %}
+                    <p class="mb-1"><a href="{% url 'memories:detail' memory.pk %}">{{ memory }}</a></p>
+                {% endfor %}
+                <div class="thumbnails">
+                    {% for memory in cat.memories.all %}
+                        {% if memory.image %}
+                            <img src="{{ memory.image.url }}" alt="Memory Image">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
-        <div class="mt-3">
+        <div class="card-footer">
             <a href="{% url 'cats:update' cat.pk %}" class="btn btn-primary">Edit</a>
             <a href="{% url 'cats:delete' cat.pk %}" class="btn btn-danger">Delete</a>
         </div>

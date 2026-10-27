@@ -3,33 +3,38 @@
 {% load static %}
 
 {% block content %}
-    <h3 class="card-header">{{ memory }}</h3>
-    <div class="card-img">
+    <article class="card detail-card">
+        <h3 class="card-header">{{ memory }}</h3>
         {% if memory.image %}
             <a href="{{ memory.image.url }}" target="_blank">
-                <img src="{{ memory.image.url }}" alt="Memory Image" width="300px">
+                <img src="{{ memory.image.url }}" alt="Memory Image" class="detail-img">
             </a>
         {% else %}
-            <img src="{% static 'images/hestia_hephaestus.jpg' %}" alt="Hestia Hephaestus Cats"
-                 width="600px" height="auto">
+            <img src="{% static 'images/hestia_hephaestus.jpg' %}" alt="Hestia Hephaestus Cats" class="detail-img">
         {% endif %}
-    </div>
-    <div class="card-body">
-        {% if memory.description %}<p>{{ memory.description }}</p>{% endif %}
-        <p>Rating: {{ memory.rating|stars }}</p>
-        {% if memory.experience %}
-            <p>for <a href="{% url 'experiences:detail' memory.experience.slug %}">{{ memory.experience }}</a></p>
-        {% endif %}
-        <h5>featuring</h5>
-        {% for cat in memory.cats.all %}
-            <p><a href="{% url 'cats:detail' cat.id %}">{{ cat }}</a></p>
-            {% if cat.image_url %}
-                <img src="{{ cat.image_url }}" alt="Cat Image" width="150" height="auto">
+        <div class="card-body">
+            {% if memory.description %}<p>{{ memory.description }}</p>{% endif %}
+            <p>Rating: {{ memory.rating|stars }}</p>
+            {% if memory.experience %}
+                <p>for <a href="{% url 'experiences:detail' memory.experience.slug %}">{{ memory.experience }}</a></p>
             {% endif %}
-        {% empty %}
-            <div><img src="{% static 'images/family.jpg' %}" alt="Cat Family" width="150px" height="auto"></div>
-        {% endfor %}
-    </div>
-    <a href="{% url 'memories:update' memory.id %}" class="btn btn-primary">Edit</a>
-    <a href="{% url 'memories:delete' memory.id %}" class="btn btn-danger">Delete</a>
+            <h5 class="card-subheading">featuring</h5>
+            {% for cat in memory.cats.all %}
+                <p class="mb-1"><a href="{% url 'cats:detail' cat.id %}">{{ cat }}</a></p>
+            {% empty %}
+                <div><img src="{% static 'images/family.jpg' %}" alt="Cat Family" width="150px" height="auto"></div>
+            {% endfor %}
+            <div class="thumbnails">
+                {% for cat in memory.cats.all %}
+                    {% if cat.image_url %}
+                        <img src="{{ cat.image_url }}" alt="{{ cat.name }}">
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'memories:update' memory.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'memories:delete' memory.id %}" class="btn btn-danger">Delete</a>
+        </div>
+    </article>
 {% endblock %}
